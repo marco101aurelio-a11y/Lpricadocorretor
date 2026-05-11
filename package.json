@@ -1,0 +1,10 @@
+{
+  "name": "lp-nova",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite --host"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}
