@@ -997,6 +997,56 @@ a
         gap: 1rem;
       }
     }
+
+    .lgpd-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: var(--dark);
+      color: #fff;
+      padding: 1.2rem 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      z-index: 1000;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+    }
+    .lgpd-banner p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.8);
+      margin: 0;
+      line-height: 1.5;
+    }
+    .lgpd-banner a {
+      color: var(--blue3);
+      text-decoration: underline;
+    }
+    .btn-lgpd {
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: var(--blue2);
+      color: #fff;
+      padding: 0.7rem 1.5rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.25s;
+    }
+    .btn-lgpd:hover {
+      background: var(--blue);
+    }
+    @media (max-width: 768px) {
+      .lgpd-banner {
+        flex-direction: column;
+        text-align: center;
+      }
+      .btn-lgpd {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 
@@ -1088,7 +1138,7 @@ a
       <div class="footer-copy" style="margin-top:0.3rem;">Minha missão é fazer as pessoas encontrando o melhor lugar
         para viver.</div>
     </div>
-    <div class="footer-copy">CRECI-MS 14.774 · Campo Grande – MS</div>
+    <div class="footer-copy">CRECI-MS 14.774 · Campo Grande – MS<br><a href="politica-de-privacidade.html" style="color: rgba(255, 255, 255, 0.5); text-decoration: none; margin-top: 5px; display: inline-block;">Política de Privacidade</a></div>
     <div class="footer-social">
       <a href="#" title="YouTube">▶</a>
       <a href="#" title="Instagram">📷</a>
@@ -1096,7 +1146,22 @@ a
     </div>
   </footer>
 
+  <div id="lgpd-banner" class="lgpd-banner" style="display: none;">
+    <p>Utilizamos cookies para personalizar conteúdos e melhorar a sua experiência. Ao navegar neste site, você concorda com a nossa <a href="politica-de-privacidade.html">Política de Privacidade</a>.</p>
+    <button id="lgpd-accept" class="btn-lgpd">Aceitar</button>
+  </div>
+
   <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (!localStorage.getItem("lgpd_accepted")) {
+        document.getElementById("lgpd-banner").style.display = "flex";
+      }
+      document.getElementById("lgpd-accept").addEventListener("click", () => {
+        localStorage.setItem("lgpd_accepted", "true");
+        document.getElementById("lgpd-banner").style.display = "none";
+      });
+    });
+
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.1 });
